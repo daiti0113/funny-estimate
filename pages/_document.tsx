@@ -1,7 +1,7 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
-import theme from '../../theme';
-import createEmotionCache from '../../createEmotionCache';
+import theme from '../theme';
+import createEmotionCache from '../createEmotionCache';
 
 export default class MyDocument extends Document {
     render() {
@@ -9,8 +9,8 @@ export default class MyDocument extends Document {
             <Html lang="ja">
                 <Head>
                     <meta name="theme-color" content={theme.palette.primary.main} />
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+                    <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/notosansjp.css" />
                     {(this.props as any).emotionStyleTags}
                 </Head>
                 <body>

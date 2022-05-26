@@ -1,7 +1,8 @@
 import type { NextPage } from 'next'
-import { Button, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material'
+import { Button, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, InputLabel, MenuItem, Radio, RadioGroup, Select, TextField, Typography, useTheme } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { getCars, getPrice, makers } from '../db'
+import { css } from "@emotion/react"
 
 const Home: NextPage = () => {
   const [peelOff, setPeelOff] = useState("0")
@@ -9,13 +10,15 @@ const Home: NextPage = () => {
   const [car, setCar] = useState<{name: string|null, frontSet: number|null, rearSet: number|null} | undefined>({name: null, frontSet: null, rearSet: null})
   const [showResult, setShowResult] = useState(false)
   const cars = useMemo(() => getCars(maker), [maker])
+  const test = useTheme()
+  console.log(test)
 
   return (
-    <div>
-      <FormControl>
-        <Typography variant="h2" component="h1" gutterBottom>
-          カーフィルム施工見積もり
-        </Typography>
+    <div css={styles.container}>
+      <Typography variant="h2" component="h1" gutterBottom color="#f7c923" css={css({textShadow: "2px 2px 4px #000", width: "100%", textAlign: "center"})}>
+        カーフィルム施工見積もり
+      </Typography>
+      <FormControl css={styles.formContainer}>
         <FormControl>
           <FormLabel id="demo-row-radio-buttons-group-label">フィルムの剥がし</FormLabel>
           <RadioGroup row aria-labelledby="demo-row-radio-buttons-group-label" name="row-radio-buttons-group" value={peelOff} onChange={event => setPeelOff(event.target.value)}>
@@ -68,3 +71,17 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+
+const styles = {
+  container: css({
+    marginTop: 20,
+  }),
+  formContainer: css({
+    display: "flex",
+    rowGap: "30px",
+    maxWidth: "400px",
+    padding: "0 40px",
+    margin: "40px auto 0 auto"
+  })
+}
