@@ -20,12 +20,12 @@ const Home: NextPage = () => {
         </div>
         <div css={css({marginLeft: "auto", display: "flex", gap: 20})}>
           <Link href="https://funny-okinawa.com" underline="hover" color="#212121">ホームページ</Link>
-          <Link href="https://funny-okinawa.com" underline="hover" color="#212121">Instagram</Link>
+          <Link href="https://www.instagram.com/funny.okinawa" underline="hover" color="#212121">Instagram</Link>
         </div>
       </header>
       <div css={css({background: "#fff7db", padding: "40px 0", display: "grid", justifyContent: "center"})}>
       <FormControl css={styles.formContainer}>
-        <Typography variant="h2" component="h2" gutterBottom>車種情報を入力してください</Typography>
+        <Typography variant="h2" component="h2" gutterBottom sx={{fontSize: {xs: 22, sm: 36}}}>車種情報を入力してください</Typography>
         <FormControl>
           <FormLabel id="demo-row-radio-buttons-group-label">メーカー</FormLabel>
           <Select
@@ -60,13 +60,13 @@ const Home: NextPage = () => {
           <>
             <Divider css={css({margin: "40px 0"})}/>
             <div css={styles.resultContainer}>
-              <Typography variant="h2" component="h2" gutterBottom>お見積り内容</Typography>
-              <Typography variant="h3" component="p" gutterBottom css={css({marginTop: 30})}>{car?.name}</Typography>
+              <Typography variant="h2" component="h2" gutterBottom sx={{fontSize: {xs: 22, sm: 36}}}>お見積り内容</Typography>
+              <Typography variant="h3" component="p" gutterBottom css={css({marginTop: 30, wordBreak: "keep-all"})}>車種 : {car?.name}</Typography>
               {car && <PriceTable car={car} />}
               <div css={css({marginTop: 30})}>
-                <Typography variant="body1" component="p" gutterBottom>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
-                <Typography variant="body1" component="p" gutterBottom>※料金は年式やグレード等により若干前後する場合がございます。</Typography>
-                <Typography variant="body1" component="p" gutterBottom>詳細については、お電話にてお問い合わせください。</Typography>
+                <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
+                <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※料金は年式やグレード等により若干前後する場合がございます。</Typography>
+                <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>詳細については、お電話にてお問い合わせください。</Typography>
               </div>
             </div>
           </>
@@ -117,7 +117,7 @@ const PriceTable = ({car}: {car: {name: string|null, frontSet: number|null, rear
                 <Typography variant="body1" gutterBottom>フロント3面</Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography variant="body1" gutterBottom>{car.frontSet?.toLocaleString()}円</Typography>
+                <Typography variant="h4" gutterBottom>{car.frontSet?.toLocaleString()}円</Typography>
               </TableCell>
             </TableRow>
             <TableRow key="frontSet">
@@ -125,7 +125,7 @@ const PriceTable = ({car}: {car: {name: string|null, frontSet: number|null, rear
                 <Typography variant="body1" gutterBottom>リア3面</Typography>
               </TableCell>
               <TableCell align="right">
-              <Typography variant="body1" gutterBottom>{car.rearSet?.toLocaleString()}円</Typography>
+              <Typography variant="h4" gutterBottom>{car.rearSet?.toLocaleString()}円</Typography>
               </TableCell>
             </TableRow>
         </TableBody>
