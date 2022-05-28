@@ -1,9 +1,10 @@
-  import type { NextPage } from 'next'
-import { Button, Divider, FormControl, FormLabel, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import type { NextPage } from 'next'
+import { Button, Divider, FormControl, FormLabel, Link, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { getCars, getPrice, makers } from '../db'
 import { css } from "@emotion/react"
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from '../constants'
+import Image from 'next/image'
 
 const Home: NextPage = () => {
   const [maker, setMaker] = useState("")
@@ -12,13 +13,17 @@ const Home: NextPage = () => {
   const cars = useMemo(() => getCars(maker), [maker])
 
   return (
-    <div css={css({height: "100vh", display: "grid", gridTemplateRows: `${HEADER_HEIGHT} minmax(calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT}), auto) ${FOOTER_HEIGHT}`})}>
-      <div css={css({height: HEADER_HEIGHT, display: "flex", alignItems: "center", paddingLeft: 20, boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)", position: "relative"})}>
-        <Typography variant="h1" component="h1">
-          カーフィルム施工 ファニー
-        </Typography>
-      </div>
-      <div css={css({background: "#fff7db"})}>
+    <div css={css({display: "grid", gridTemplateRows: `${HEADER_HEIGHT} minmax(calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT}), auto) ${FOOTER_HEIGHT}`})}>
+      <header css={css({height: HEADER_HEIGHT, display: "flex", alignItems: "center", padding: "0 30px", boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)", position: "relative"})}>
+        <div style={{ position: 'relative', width: 120, height: 60 }}>
+            <Image src="/logo.png" alt='logo' layout="fill" objectFit='contain' />
+        </div>
+        <div css={css({marginLeft: "auto", display: "flex", gap: 20})}>
+          <Link href="https://funny-okinawa.com" underline="hover" color="#212121">ホームページ</Link>
+          <Link href="https://funny-okinawa.com" underline="hover" color="#212121">Instagram</Link>
+        </div>
+      </header>
+      <div css={css({background: "#fff7db", padding: "40px 0", display: "grid", justifyContent: "center"})}>
       <FormControl css={styles.formContainer}>
         <Typography variant="h2" component="h2" gutterBottom>車種情報を入力してください</Typography>
         <FormControl>
@@ -51,21 +56,29 @@ const Home: NextPage = () => {
         </FormControl>
         <Button variant="contained" onClick={() => setShowResult(true)} disabled={!car}>料金を調べる</Button>
         </FormControl>
-        <Divider css={css({margin: "80px 40px"})}/>
         {showResult && (
-          <div css={styles.resultContainer}>
-            <Typography variant="h2" component="h2" gutterBottom>お見積り内容</Typography>
-            <Typography variant="h5" component="p" gutterBottom>{car?.name}</Typography>
-            {car && <PriceTable car={car} />}
-            <div css={css({marginTop: 30})}>
-              <Typography variant="body1" component="p" gutterBottom>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
-              <Typography variant="body1" component="p" gutterBottom>※料金は年式やグレード等により若干前後する場合がございます。</Typography>
-              <Typography variant="body1" component="p" gutterBottom>詳細については、お電話にてお問い合わせください。</Typography>
+          <>
+            <Divider css={css({margin: "40px 0"})}/>
+            <div css={styles.resultContainer}>
+              <Typography variant="h2" component="h2" gutterBottom>お見積り内容</Typography>
+              <Typography variant="h5" component="p" gutterBottom>{car?.name}</Typography>
+              {car && <PriceTable car={car} />}
+              <div css={css({marginTop: 30})}>
+                <Typography variant="body1" component="p" gutterBottom>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
+                <Typography variant="body1" component="p" gutterBottom>※料金は年式やグレード等により若干前後する場合がございます。</Typography>
+                <Typography variant="body1" component="p" gutterBottom>詳細については、お電話にてお問い合わせください。</Typography>
+              </div>
             </div>
-          </div>
+          </>
         )}
         </div>
-        <footer css={css({height: FOOTER_HEIGHT, background: "#ccc"})}></footer>
+        <footer css={css({height: FOOTER_HEIGHT, background: "#ccc", padding: 20})}>
+          <div style={{ position: 'relative', width: 120, height: 60 }}>
+            <Image src="/logo.png" alt='logo' layout="fill" objectFit='contain' />
+          </div>
+          <Typography variant="body2" component="p" gutterBottom>沖縄県浦添市沢岻1-42-1 玉城住宅1F</Typography>
+          <Link href="tel:09019453965" color="#212121" variant="body2" gutterBottom>☎090-1945-3965</Link>
+        </footer>
     </div>
   )
 }
@@ -79,13 +92,11 @@ const styles = {
     rowGap: "30px",
     maxWidth: "600px",
     padding: "0 40px",
-    margin: "40px auto 0 auto",
   }),
   resultContainer: css({
     rowGap: "30px",
     maxWidth: "600px",
     padding: "0 40px",
-    margin: "40px auto 0 auto"
   })
 }
 
