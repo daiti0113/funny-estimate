@@ -4,5 +4,4 @@ export const scrollToTarget = (id: string) => {
   const rect = element.getBoundingClientRect()
   const position = rect.top
   scrollTo(0, position)
-  console.log("SCROLLED")
 }

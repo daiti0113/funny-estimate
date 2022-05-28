@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { Button, Divider, FormControl, FormLabel, Link, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getCars, getPrice, makers } from '../db'
 import { css } from "@emotion/react"
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from '../constants'
@@ -11,6 +11,10 @@ const Home: NextPage = () => {
   const [car, setCar] = useState<{name: string|null, frontSet: number|null, rearSet: number|null} | undefined>({name: null, frontSet: null, rearSet: null})
   const [showResult, setShowResult] = useState(false)
   const cars = useMemo(() => getCars(maker), [maker])
+
+  useEffect(() => {
+    scrollToTarget("result")
+  }, [showResult])
 
   return (
     <div css={css({display: "grid", gridTemplateRows: `${HEADER_HEIGHT} minmax(calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT}), auto) ${FOOTER_HEIGHT}`})}>
@@ -52,27 +56,26 @@ const Home: NextPage = () => {
             {cars && cars.map(({ name }) => <MenuItem key={name} value={name}>{name}</MenuItem>)}
           </Select>
         </FormControl>
-        <Button variant="contained" onClick={() => {
-          setShowResult(true)
-          scrollToTarget("result")
-        }} disabled={!car}>料金を調べる</Button>
+        <Button variant="contained" onClick={() => showResult ? scrollToTarget("result") : car?.name && setShowResult(true)} disabled={!car}>料金を調べる</Button>
         </FormControl>
-        {showResult && (
-          <>
-            <Divider css={css({margin: "40px 0"})}/>
-            <div css={styles.resultContainer} id="result">
-              <Typography variant="h2" component="h2" gutterBottom sx={{fontSize: {xs: 22, sm: 36}}}>お見積り内容</Typography>
-              <Typography variant="h3" component="p" gutterBottom css={css({marginTop: 30, wordBreak: "keep-all"})}>車種 : {car?.name}</Typography>
-              {car && <PriceTable car={car} />}
-              <div css={css({marginTop: 30})}>
-                <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※リアのみ、ドアのみなどの価格はお問い合わせください。</Typography>
-                <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
-                <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※料金は年式やグレード等により若干前後する場合がございます。</Typography>
-                <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>詳細については、お電話にてお問い合わせください。</Typography>
+        <div id="result">
+          {showResult && (
+            <>
+              <Divider css={css({margin: "40px 0"})} />
+              <div css={styles.resultContainer}>
+                <Typography variant="h2" component="h2" gutterBottom sx={{fontSize: {xs: 22, sm: 36}}}>お見積り内容</Typography>
+                <Typography variant="h3" component="p" gutterBottom css={css({marginTop: 30, wordBreak: "keep-all"})}>車種 : {car?.name}</Typography>
+                {car && <PriceTable car={car} />}
+                <div css={css({marginTop: 30})}>
+                  <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※リアのみ、ドアのみなどの価格はお問い合わせください。</Typography>
+                  <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
+                  <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※料金は年式やグレード等により若干前後する場合がございます。</Typography>
+                  <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>詳細については、お電話にてお問い合わせください。</Typography>
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
         </div>
         <footer css={css({height: FOOTER_HEIGHT, background: "#ccc", padding: 20})}>
           <img src="/logo.png" alt='logo' width={120} height={60} />
