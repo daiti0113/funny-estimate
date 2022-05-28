@@ -61,7 +61,7 @@ const Home: NextPage = () => {
             <Divider css={css({margin: "40px 0"})}/>
             <div css={styles.resultContainer}>
               <Typography variant="h2" component="h2" gutterBottom>お見積り内容</Typography>
-              <Typography variant="h5" component="p" gutterBottom>{car?.name}</Typography>
+              <Typography variant="h3" component="p" gutterBottom css={css({marginTop: 30})}>{car?.name}</Typography>
               {car && <PriceTable car={car} />}
               <div css={css({marginTop: 30})}>
                 <Typography variant="body1" component="p" gutterBottom>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
@@ -104,7 +104,7 @@ const styles = {
 const PriceTable = ({car}: {car: {name: string|null, frontSet: number|null, rearSet: number|null}}) => {
   return (
     <TableContainer>
-      <Table sx={{maxWidth: 400, margin: "auto"}} aria-label="simple table">
+      <Table sx={{maxWidth: 400, margin: "20px auto"}} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell />
