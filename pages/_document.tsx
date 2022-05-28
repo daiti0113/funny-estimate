@@ -11,6 +11,7 @@ export default class MyDocument extends Document {
                     <meta name="theme-color" content={theme.palette.primary.main} />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
                     <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/notosansjp.css" />
+                    <link rel="shortcut icon" href="/favicon.png" />
                     {(this.props as any).emotionStyleTags}
                 </Head>
                 <body>
