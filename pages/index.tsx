@@ -13,12 +13,12 @@ const Home: NextPage = () => {
 
   return (
     <div css={css({height: "100vh", display: "grid", gridTemplateRows: `${HEADER_HEIGHT} minmax(calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT}), auto) ${FOOTER_HEIGHT}`})}>
-      <header css={css({background: "#f7c923", height: HEADER_HEIGHT, display: "flex", alignItems: "center", paddingLeft: 20})}>
+      <div css={css({height: HEADER_HEIGHT, display: "flex", alignItems: "center", paddingLeft: 20, boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)", position: "relative"})}>
         <Typography variant="h1" component="h1">
           カーフィルム施工 ファニー
         </Typography>
-      </header>
-      <div>
+      </div>
+      <div css={css({background: "#fff7db"})}>
       <FormControl css={styles.formContainer}>
         <Typography variant="h2" component="h2" gutterBottom>車種情報を入力してください</Typography>
         <FormControl>
