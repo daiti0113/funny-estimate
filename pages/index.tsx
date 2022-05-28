@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { getCars, getPrice, makers } from '../db'
 import { css } from "@emotion/react"
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from '../constants'
+import { scrollToTarget } from '../helpers/scroll'
 
 const Home: NextPage = () => {
   const [maker, setMaker] = useState("")
@@ -51,12 +52,15 @@ const Home: NextPage = () => {
             {cars && cars.map(({ name }) => <MenuItem key={name} value={name}>{name}</MenuItem>)}
           </Select>
         </FormControl>
-        <Button variant="contained" onClick={() => setShowResult(true)} disabled={!car}>料金を調べる</Button>
+        <Button variant="contained" onClick={() => {
+          setShowResult(true)
+          scrollToTarget("result")
+        }} disabled={!car}>料金を調べる</Button>
         </FormControl>
         {showResult && (
           <>
             <Divider css={css({margin: "40px 0"})}/>
-            <div css={styles.resultContainer}>
+            <div css={styles.resultContainer} id="result">
               <Typography variant="h2" component="h2" gutterBottom sx={{fontSize: {xs: 22, sm: 36}}}>お見積り内容</Typography>
               <Typography variant="h3" component="p" gutterBottom css={css({marginTop: 30, wordBreak: "keep-all"})}>車種 : {car?.name}</Typography>
               {car && <PriceTable car={car} />}
@@ -116,7 +120,7 @@ const PriceTable = ({car}: {car: {name: string|null, frontSet: number|null, rear
                 <Typography variant="h4" gutterBottom>{car.frontSet?.toLocaleString()}円</Typography>
               </TableCell>
             </TableRow>
-            <TableRow key="frontSet">
+            <TableRow key="rearSet">
               <TableCell component="th" scope="row">
                 <Typography variant="body1" gutterBottom>リアセット</Typography>
               </TableCell>
