@@ -133,6 +133,7 @@ const PriceTable = ({car}: {car: {name: string|null, frontSet: number|null, rear
             </TableRow>
         </TableBody>
       </Table>
+      <Link href="tel:09019453965" variant="body1" gutterBottom color="#212121">☎090-1945-3965<br />ご予約・お問い合わせはこちら</Link>
     </TableContainer>
   )
 }
