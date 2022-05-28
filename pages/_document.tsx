@@ -2,6 +2,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
+import Script from 'next/script';
 
 export default class MyDocument extends Document {
     render() {
@@ -13,6 +14,19 @@ export default class MyDocument extends Document {
                     <link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/notosansjp.css" />
                     <link rel="shortcut icon" href="/favicon.png" />
                     {(this.props as any).emotionStyleTags}
+                    {/* Global site tag (gtag.js) - Google Analytics */}
+                    <Script
+                        strategy="afterInteractive"
+                        dangerouslySetInnerHTML={{
+                            __html: `window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                        
+                            gtag('config', 'G-YX9MQYSNP6');
+                            `
+                        }}
+                        id="ga"
+                    />
                 </Head>
                 <body>
                     <Main />
