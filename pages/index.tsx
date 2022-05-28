@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react'
 import { getCars, getPrice, makers } from '../db'
 import { css } from "@emotion/react"
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from '../constants'
-import Image from 'next/image'
 
 const Home: NextPage = () => {
   const [maker, setMaker] = useState("")
@@ -15,9 +14,7 @@ const Home: NextPage = () => {
   return (
     <div css={css({display: "grid", gridTemplateRows: `${HEADER_HEIGHT} minmax(calc(100vh - ${HEADER_HEIGHT} - ${FOOTER_HEIGHT}), auto) ${FOOTER_HEIGHT}`})}>
       <header css={css({height: HEADER_HEIGHT, display: "flex", alignItems: "center", padding: "0 30px", boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)", position: "relative"})}>
-        <div style={{ position: 'relative', width: 120, height: 60 }}>
-            <Image src="/logo.png" alt='logo' layout="fill" objectFit='contain' />
-        </div>
+        <img src="/logo.png" alt='logo' width={120} height={60} />
         <div css={css({marginLeft: "auto", display: "flex", gap: 20})}>
           <Link href="https://funny-okinawa.com" underline="hover" color="#212121">ホームページ</Link>
           <Link href="https://www.instagram.com/funny.okinawa" underline="hover" color="#212121">Instagram</Link>
@@ -73,9 +70,7 @@ const Home: NextPage = () => {
         )}
         </div>
         <footer css={css({height: FOOTER_HEIGHT, background: "#ccc", padding: 20})}>
-          <div style={{ position: 'relative', width: 120, height: 60 }}>
-            <Image src="/logo.png" alt='logo' layout="fill" objectFit='contain' />
-          </div>
+          <img src="/logo.png" alt='logo' width={120} height={60} />
           <Typography variant="body2" component="p" gutterBottom>沖縄県浦添市沢岻1-42-1 玉城住宅1F</Typography>
           <Link href="tel:09019453965" color="#212121" variant="body2" gutterBottom>☎090-1945-3965</Link>
         </footer>
