@@ -17,6 +17,10 @@ export default class MyDocument extends Document {
                     {/* Global site tag (gtag.js) - Google Analytics */}
                     <Script
                         strategy="afterInteractive"
+                        src="https://www.googletagmanager.com/gtag/js?id=G-YX9MQYSNP6"
+                    />
+                    <Script
+                        strategy="afterInteractive"
                         dangerouslySetInnerHTML={{
                             __html: `window.dataLayer = window.dataLayer || [];
                             function gtag(){dataLayer.push(arguments);}
