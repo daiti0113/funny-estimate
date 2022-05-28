@@ -16,8 +16,8 @@ const Home: NextPage = () => {
       <header css={css({height: HEADER_HEIGHT, display: "flex", alignItems: "center", padding: "0 30px", boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.2)", position: "relative"})}>
         <img src="/logo.png" alt='logo' width={120} height={60} />
         <div css={css({marginLeft: "auto", display: "flex", gap: 20})}>
-          <Link href="https://funny-okinawa.com" underline="hover" color="#212121">ホームページ</Link>
-          <Link href="https://www.instagram.com/funny.okinawa" underline="hover" color="#212121">Instagram</Link>
+          <Link href="https://funny-okinawa.com" underline="hover" color="#212121" sx={{fontSize: {xs: 14, sm: 16}}}>ホームページ</Link>
+          <Link href="https://www.instagram.com/funny.okinawa" underline="hover" color="#212121" sx={{fontSize: {xs: 14, sm: 16}}}>Instagram</Link>
         </div>
       </header>
       <div css={css({background: "#fff7db", padding: "40px 0", display: "grid", justifyContent: "center"})}>
@@ -61,6 +61,7 @@ const Home: NextPage = () => {
               <Typography variant="h3" component="p" gutterBottom css={css({marginTop: 30, wordBreak: "keep-all"})}>車種 : {car?.name}</Typography>
               {car && <PriceTable car={car} />}
               <div css={css({marginTop: 30})}>
+                <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※リアのみ、ドアのみなどの価格はお問い合わせください。</Typography>
                 <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
                 <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※料金は年式やグレード等により若干前後する場合がございます。</Typography>
                 <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>詳細については、お電話にてお問い合わせください。</Typography>
