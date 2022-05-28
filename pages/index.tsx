@@ -109,7 +109,7 @@ const PriceTable = ({car}: {car: {name: string|null, frontSet: number|null, rear
         <TableBody>
             <TableRow key="frontSet">
               <TableCell component="th" scope="row" variant="body">
-                <Typography variant="body1" gutterBottom>フロント3面</Typography>
+                <Typography variant="body1" gutterBottom>フロントセット</Typography>
               </TableCell>
               <TableCell align="right">
                 <Typography variant="h4" gutterBottom>{car.frontSet?.toLocaleString()}円</Typography>
@@ -117,7 +117,7 @@ const PriceTable = ({car}: {car: {name: string|null, frontSet: number|null, rear
             </TableRow>
             <TableRow key="frontSet">
               <TableCell component="th" scope="row">
-                <Typography variant="body1" gutterBottom>リア3面</Typography>
+                <Typography variant="body1" gutterBottom>リアセット</Typography>
               </TableCell>
               <TableCell align="right">
               <Typography variant="h4" gutterBottom>{car.rearSet?.toLocaleString()}円</Typography>
