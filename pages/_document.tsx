@@ -2,7 +2,6 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
-import Script from 'next/script';
 import { GA_ID } from '../helpers/gtag';
 
 export default class MyDocument extends Document {
@@ -16,27 +15,18 @@ export default class MyDocument extends Document {
                     <link rel="shortcut icon" href="/favicon.png" />
                     {(this.props as any).emotionStyleTags}
                     {/* Global site tag (gtag.js) - Google Analytics */}
-                    {GA_ID && (
-                        <>
-                            <Script
-                                strategy="afterInteractive"
-                                src="https://www.googletagmanager.com/gtag/js?id=G-YX9MQYSNP6"
-                            />
-                            <Script
-                                strategy="afterInteractive"
-                                dangerouslySetInnerHTML={{
-                                    __html: `window.dataLayer = window.dataLayer || [];
-                                    function gtag(){dataLayer.push(arguments);}
-                                    gtag('js', new Date());
-                                
-                                    gtag('config', '${GA_ID}', {
-                                        page_path: window.location.pathname,
-                                        });`
-                                }}
-                                id="ga"
-                            />
-                        </>
-                    )}
+                    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+                    <script dangerouslySetInnerHTML={{
+                        __html: `window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+                    
+                        gtag('config', '${GA_ID}', {
+                            page_path: window.location.pathname,
+                            });`
+                        }}
+                        id="ga"
+                    />
                 </Head>
                 <body>
                     <Main />
