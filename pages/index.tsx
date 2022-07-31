@@ -67,6 +67,7 @@ const Home: NextPage = () => {
                 <Typography variant="h3" component="p" gutterBottom css={css({marginTop: 30, wordBreak: "keep-all"})}>車種 : {car?.name}</Typography>
                 {car && <PriceTable car={car} />}
                 <div css={css({marginTop: 30})}>
+                  <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※代車も無料で貸し出しております。</Typography>
                   <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※リアのみ、ドアのみなどの価格はお問い合わせください。</Typography>
                   <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※古いフィルムの剥がし作業がある場合は、別途料金がかかります。</Typography>
                   <Typography variant="body1" component="p" gutterBottom sx={{fontSize: {xs: 14, sm: 16}}}>※料金は年式やグレード等により若干前後する場合がございます。</Typography>
