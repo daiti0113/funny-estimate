@@ -1,16 +1,29 @@
 import type { NextPage } from 'next'
-import { Button, Divider, FormControl, FormLabel, Link, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import { Button, CircularProgress, Divider, FormControl, FormLabel, Link, MenuItem, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
-import { getCars, getPrice, makers } from '../db'
+import { getCars, getMakers, getPrice, makers } from '../db'
 import { css } from "@emotion/react"
 import { FOOTER_HEIGHT, HEADER_HEIGHT } from '../constants'
 import { scrollToTarget } from '../helpers/scroll'
+import { FamilyRestroomRounded } from '@mui/icons-material'
 
 const Home: NextPage = () => {
   const [maker, setMaker] = useState("")
+  const [makers, setMakers] = useState<makers>([])
   const [car, setCar] = useState<{name: string|null, frontSet: number|null, rearSet: number|null} | undefined>({name: null, frontSet: null, rearSet: null})
   const [showResult, setShowResult] = useState(false)
-  const cars = useMemo(() => getCars(maker), [maker])
+  const cars = useMemo(() => getCars(makers, maker), [makers, maker])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    fetch("https://script.google.com/macros/s/AKfycbwZkU6AHcLoJ3j9PqVDkgU-98DP9q6mQKCZiodzzz6WfFswUyQWt_cRpo6QI0qSQoIiGw/exec")
+      .then((res) => res.json())
+      .then((makers) => {
+          setMakers(makers)
+          setLoading(false)
+      })
+  }, [])
 
   useEffect(() => {
     scrollToTarget("result")
@@ -26,38 +39,40 @@ const Home: NextPage = () => {
         </div>
       </header>
       <div css={css({background: "#fff7db", padding: "40px 0", display: "grid", justifyContent: "center"})}>
-      <FormControl css={styles.formContainer}>
-        <Typography variant="h2" component="h2" gutterBottom sx={{fontSize: {xs: 22, sm: 36}}}>車種情報を入力してください</Typography>
-        <FormControl>
-          <FormLabel id="demo-row-radio-buttons-group-label">メーカー</FormLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={maker}
-            label="メーカー"
-            onChange={(event) => setMaker(event.target.value)}
-          >
-            {makers.map(({ label, value }) => <MenuItem key={value} value={value}>{label}</MenuItem>)}
-          </Select>
+      {loading ? <CircularProgress /> : (
+        <FormControl css={styles.formContainer}>
+          <Typography variant="h2" component="h2" gutterBottom sx={{fontSize: {xs: 22, sm: 36}}}>車種情報を入力してください</Typography>
+          <FormControl>
+            <FormLabel id="demo-row-radio-buttons-group-label">メーカー</FormLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={maker}
+              label="メーカー"
+              onChange={(event) => setMaker(event.target.value)}
+            >
+              {makers?.map(({ label, value }) => <MenuItem key={value} value={value}>{label}</MenuItem>)}
+            </Select>
+          </FormControl>
+          <FormControl>
+            <FormLabel id="demo-row-radio-buttons-group-label">車種</FormLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={car?.name}
+              label="maker"
+              onChange={(event) => {
+                const car = getPrice(makers, maker, event.target.value)
+                setCar(car)
+              }}
+              disabled={!cars}
+            >
+              {cars && cars.map(({ name }) => <MenuItem key={name} value={name}>{name}</MenuItem>)}
+            </Select>
+          </FormControl>
+          <Button variant="contained" onClick={() => showResult ? scrollToTarget("result") : car?.name && setShowResult(true)} disabled={!car}>料金を調べる</Button>
         </FormControl>
-        <FormControl>
-          <FormLabel id="demo-row-radio-buttons-group-label">車種</FormLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={car?.name}
-            label="maker"
-            onChange={(event) => {
-              const car = getPrice(maker, event.target.value)
-              setCar(car)
-            }}
-            disabled={!cars}
-          >
-            {cars && cars.map(({ name }) => <MenuItem key={name} value={name}>{name}</MenuItem>)}
-          </Select>
-        </FormControl>
-        <Button variant="contained" onClick={() => showResult ? scrollToTarget("result") : car?.name && setShowResult(true)} disabled={!car}>料金を調べる</Button>
-        </FormControl>
+      )}
         <div id="result">
           {showResult && (
             <>
