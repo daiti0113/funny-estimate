@@ -141,7 +141,7 @@ const PriceTable = ({car}: {car: {name: string|null, frontSet: number|null, rear
             </TableRow>
             <TableRow key="rearSet">
               <TableCell component="th" scope="row">
-                <Typography variant="body1" gutterBottom>リアセット（後方3面）</Typography>
+                <Typography variant="body1" gutterBottom>リアセット（後方3面 または 5面）</Typography>
               </TableCell>
               <TableCell align="right">
               <Typography variant="h4" gutterBottom>{car.rearSet?.toLocaleString()}円</Typography>
